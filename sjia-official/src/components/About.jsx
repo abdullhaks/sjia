@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useInView } from 'framer-motion';
-import quran from "../assets/quran.mp4";
+import vid1 from '../assets/vid1.mp4';
 import { 
   Award, 
   Users, 
@@ -30,7 +30,7 @@ const About = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [activeSection, setActiveSection] = useState('mission');
   const [countersStarted, setCountersStarted] = useState(false);
-  
+
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const statsRef = useRef(null);
@@ -44,27 +44,63 @@ const About = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
+  // Log video path once to verify
+  useEffect(() => {
+    console.log("Resolved video URL:", vid1);
+  }, []);
+
   useEffect(() => {
     if (isStatsInView && !countersStarted) {
       setCountersStarted(true);
     }
   }, [isStatsInView, countersStarted]);
 
-  const handleVideoToggle = () => {
-    if (videoRef.current) {
+  const handleVideoToggle = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    try {
       if (isVideoPlaying) {
-        videoRef.current.pause();
+        video.pause();
+        setIsVideoPlaying(false);
       } else {
-        videoRef.current.play();
+        await video.play().catch((err) => {
+          console.error("Video play failed:", err);
+          // Fallback: try playing with mute
+          video.muted = true;
+          setIsMuted(true);
+          video.play().catch((innerErr) => console.error("Muted play failed:", innerErr));
+        });
+        setIsVideoPlaying(true);
       }
-      setIsVideoPlaying(!isVideoPlaying);
+    } catch (err) {
+      console.error("Video play error:", err);
     }
   };
 
-  const handleMuteToggle = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
+  const handleMuteToggle = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    try {
+      if (isMuted) {
+        // Unmuting: ensure video is playing or attempt to play
+        if (!isVideoPlaying) {
+          await video.play().catch((err) => {
+            console.error("Play failed on unmute:", err);
+            // If play fails, keep muted
+            return;
+          });
+          setIsVideoPlaying(true);
+        }
+        video.muted = false;
+        setIsMuted(false);
+      } else {
+        video.muted = true;
+        setIsMuted(true);
+      }
+    } catch (err) {
+      console.error("Mute toggle error:", err);
     }
   };
 
@@ -326,7 +362,7 @@ const About = () => {
   );
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50 relative overflow-hidden">
+    <div ref={containerRef} style={{ position: 'relative' }} className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50 relative overflow-hidden">
       {backgroundPattern}
       
       {/* Floating Particles */}
@@ -367,13 +403,15 @@ const About = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <video
                 ref={videoRef}
-                src={quran}
+                src={vid1}
                 loop
                 muted={isMuted}
                 playsInline
                 className="w-full h-96 object-cover"
                 onPlay={() => setIsVideoPlaying(true)}
                 onPause={() => setIsVideoPlaying(false)}
+                onError={(e) => console.error("Video failed to load:", e)}
+                preload="auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
               

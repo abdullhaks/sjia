@@ -1,19 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  AnimatePresence,
-} from "framer-motion";
-import {
-  BookOpen,
-  GraduationCap,
-  Play,
-  Volume2,
-  ChevronDown,
-} from "lucide-react";
-import { useTranslation } from "react-i18next";
-import audio from "../assets/quran.mp4";
+import React, { useState, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { BookOpen, GraduationCap, Play, Volume2, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import audio from '../assets/salaam.mp3';
 
 // Mock logo - replace with your actual logo
 const collegeLogo =
@@ -24,10 +13,11 @@ const collegeImage =
   "https://ik.imagekit.io/aksWebSolutions/SJIA/View01.jpg?updatedAt=1754629459883";
 
 const Hero = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(new Audio(audio));
+  const audioRef = useRef(null);
   const { scrollY } = useScroll();
+
   const y = useTransform(scrollY, [0, 1000], [0, -200]);
   const opacity = useTransform(scrollY, [0, 800], [1, 0]);
 
@@ -35,10 +25,11 @@ const Hero = () => {
   const BlurText = ({
     text,
     delay = 100,
-    className = "",
-    direction = "up",
+    className = '',
+    direction = 'up',
   }) => {
-    const words = text.split(" ");
+    const words = text.split(' ');
+
     return (
       <div className={className}>
         {words.map((word, index) => (
@@ -47,12 +38,12 @@ const Hero = () => {
             className="inline-block mr-2"
             initial={{
               opacity: 0,
-              filter: "blur(10px)",
-              y: direction === "up" ? 50 : -50,
+              filter: 'blur(10px)',
+              y: direction === 'up' ? 50 : -50,
             }}
             animate={{
               opacity: 1,
-              filter: "blur(0px)",
+              filter: 'blur(0px)',
               y: 0,
             }}
             transition={{
@@ -68,44 +59,34 @@ const Hero = () => {
     );
   };
 
-  // ShinyText for greeting button
-  const ShinyText = ({ text, className = "" }) => (
+  // ShinyText component for greeting
+  const ShinyText = ({ text, className = '' }) => (
     <motion.div
       className={`inline-block bg-gradient-to-r from-white/60 via-white to-white/60 bg-clip-text text-transparent bg-[length:200%_100%] ${className}`}
-      animate={{ backgroundPosition: ["200% 0%", "-200% 0%"] }}
-      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+      animate={{ backgroundPosition: ['200% 0%', '-200% 0%'] }}
+      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
     >
       {text}
     </motion.div>
   );
 
-  // Audio control
-  useEffect(() => {
-    const audio = audioRef.current;
-    audio.loop = false;
-    audio.onended = () => setIsPlaying(false);
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
-
-  const toggleAudio = () => {
-    const audio = audioRef.current;
-    if (isPlaying) {
-      audio.pause();
-      audio.currentTime = 0;
-      setIsPlaying(false);
-    } else {
-      audio.play().catch((err) => console.error("Audio playback error:", err));
-      setIsPlaying(true);
+  const playGreeting = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().catch((error) => {
+          console.error('Audio playback error:', error);
+        });
+        setIsPlaying(true);
+      }
     }
   };
 
-  // Language switcher
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
+  // Handle audio end
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
   };
 
   const particles = Array.from({ length: 80 }, (_, i) => ({
@@ -123,6 +104,9 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ y, opacity }}
     >
+      {/* Audio Element */}
+      <audio ref={audioRef} src={audio} onEnded={handleAudioEnded} />
+
       {/* Complex Background System */}
       <div className="absolute inset-0">
         {/* Main Background Image */}
@@ -138,33 +122,33 @@ const Hero = () => {
           className="absolute inset-0"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)",
+              'radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)',
             ],
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        {/* Islamic Geometric Pattern */}
+        {/* Islamic Geometric Pattern
         <motion.div
-          className="absolute inset-0 opacity-0"
+          className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='1'%3E%3Cpath d='M50 0L62.5 37.5H100L75 62.5L87.5 100L50 75L12.5 100L25 62.5L0 37.5H37.5L50 0Z' /%3E%3Ccircle cx='50' cy='50' r='25' fill='none' stroke='white' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E")`,
           }}
           animate={{
-            backgroundPosition: ["0px 0px", "100px 100px"],
+            backgroundPosition: ['0px 0px', '100px 100px'],
             rotate: [0, 360],
           }}
           transition={{
             backgroundPosition: {
               duration: 60,
               repeat: Infinity,
-              ease: "linear",
+              ease: 'linear',
             },
-            rotate: { duration: 120, repeat: Infinity, ease: "linear" },
+            rotate: { duration: 120, repeat: Infinity, ease: 'linear' },
           }}
-        />
+        /> */}
 
         {/* Floating Particles */}
         {particles.map((particle) => (
@@ -188,7 +172,7 @@ const Hero = () => {
               duration: particle.duration,
               repeat: Infinity,
               delay: Math.random() * 3,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
           />
         ))}
@@ -200,7 +184,7 @@ const Hero = () => {
           className="space-y-8"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
         >
           {/* Main Heading */}
           <motion.div
@@ -210,7 +194,7 @@ const Hero = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <BlurText
-              text={t("hero_head")}
+              text={t('hero_head')}
               delay={120}
               className="text-3xl md:text-4xl lg:text-6xl font-bold text-white leading-tight"
             />
@@ -231,7 +215,7 @@ const Hero = () => {
             transition={{ duration: 1, delay: 1 }}
           >
             <BlurText
-              text={t("hero_ayah")}
+              text={t('hero_ayah')}
               delay={80}
               direction="down"
               className="text-lg md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed font-medium font-arabic"
@@ -247,31 +231,6 @@ const Hero = () => {
             </motion.p>
           </motion.div>
 
-          {/* Language Switcher */}
-          <motion.div
-            className="pt-8 flex justify-center gap-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 2 }}
-          >
-            {["en", "ml", "ur", "ar"].map((lang) => (
-              <motion.button
-                key={lang}
-                onClick={() => changeLanguage(lang)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                  i18n.language === lang
-                    ? "bg-emerald-500 text-white"
-                    : "bg-white/10 text-white/70 hover:bg-white/20"
-                } transition-all duration-300`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={`Switch to ${lang.toUpperCase()} language`}
-              >
-                {lang.toUpperCase()}
-              </motion.button>
-            ))}
-          </motion.div>
-
           {/* Greeting Button */}
           <motion.div
             className="pt-8"
@@ -280,15 +239,14 @@ const Hero = () => {
             transition={{ duration: 1, delay: 2 }}
           >
             <motion.button
-              onClick={toggleAudio}
+              onClick={playGreeting}
               className={`group relative overflow-hidden px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-semibold transition-all duration-500 ${
                 isPlaying
-                  ? "scale-105 bg-white/20"
-                  : "hover:bg-white/15 hover:scale-105"
+                  ? 'scale-105 bg-white/20'
+                  : 'hover:bg-white/15 hover:scale-105'
               }`}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
-              aria-label={isPlaying ? "Pause greeting audio" : "Play greeting audio"}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -328,32 +286,28 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 2.5 }}
           >
-            <motion.a
-              href="#programs"
+            <motion.button
               className="group px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl shadow-xl overflow-hidden"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              aria-label="Explore programs"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative flex items-center space-x-2">
                 <BookOpen className="w-5 h-5" />
                 <span>Explore Programs</span>
               </span>
-            </motion.a>
+            </motion.button>
 
-            <motion.a
-              href="#about"
+            <motion.button
               className="group px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              aria-label="Learn more about us"
             >
               <span className="flex items-center space-x-2">
                 <GraduationCap className="w-5 h-5" />
                 <span>Learn More</span>
               </span>
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>
@@ -367,7 +321,7 @@ const Hero = () => {
       >
         <motion.div
           animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center space-y-2 cursor-pointer group"
         >
           <span className="text-sm font-medium group-hover:text-white transition-colors">

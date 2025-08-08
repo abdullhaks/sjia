@@ -31,11 +31,11 @@ function App() {
       <div id="testimonials">
         <Testimonials />
       </div>
-      <div id="academicExcellence">
-        <AcademicExcellence />
-      </div>
       <div id="admissions">
         <Admissions />
+      </div>
+       <div id="academicExcellence">
+        <AcademicExcellence />
       </div>
       <div id="contact">
         <Contact />

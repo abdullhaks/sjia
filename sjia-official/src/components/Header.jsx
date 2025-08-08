@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Menu, X, BookOpen,BookCopy , Users, GraduationCap, Phone, Globe, ChevronDown, Star, Play, Volume2 ,Award} from 'lucide-react';
-
+import { useTranslation } from 'react-i18next';
 // Mock logo - replace with your actual logo
 const collegeLogo = "data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='25' cy='25' r='23' fill='%23059669' stroke='%23ffffff' stroke-width='4'/%3E%3Ctext x='25' y='32' text-anchor='middle' fill='white' font-size='20' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E";
 
@@ -13,14 +13,20 @@ const Header = ({ activeSection = 'hero', setActiveSection = () => {} }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (code) => {
+    i18n.changeLanguage(code);
+    setShowLangDropdown(false);
+  };
 
   const navItems = [
     { id: 'hero', label: 'Home', icon: <Globe className="w-4 h-4" /> },
     { id: 'about', label: 'About', icon: <Users className="w-4 h-4" /> },
     { id: 'programs', label: 'Programs', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'campus', label: 'Campus', icon: <GraduationCap className="w-4 h-4" /> },
-    { id: 'admissions', label: 'Admissions', icon: <BookCopy  className="w-4 h-4" /> },
     { id: 'testimonials', label: 'Testimonials', icon: <Star className="w-4 h-4" /> },
+    { id: 'admissions', label: 'Admissions', icon: <BookCopy  className="w-4 h-4" /> },
     { id: 'academicExcellence', label: 'Academic Excels', icon: <Award className="w-4 h-4" /> },
     { id: 'contact', label: 'Contact', icon: <Phone className="w-4 h-4" /> },
 
@@ -118,7 +124,7 @@ const getCurrentLanguage = () => {
               
               <div className="flex flex-col">
                 <motion.h1 
-                  className="text-xl font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
+                  className="text-m font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
