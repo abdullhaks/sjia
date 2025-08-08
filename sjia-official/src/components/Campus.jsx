@@ -67,9 +67,9 @@ const Campus = () => {
   // Student association key members
   const associationMembers = [
     { name: "Ahmed Al-Sayed", role: "President", description: "Leads student initiatives and campus events.", image: null },
-    { name: "Fatima Noor", role: "Vice President", description: "Coordinates community service and cultural programs.", image: null },
+    { name: "Noor", role: "Vice President", description: "Coordinates community service and cultural programs.", image: null },
     { name: "Yusuf Khan", role: "Event Coordinator", description: "Organizes fests, competitions, and gatherings.", image: null },
-    { name: "Aisha Rahman", role: "Treasurer", description: "Manages association budget and fundraising.", image: null }
+    { name: "Rahman", role: "Treasurer", description: "Manages association budget and fundraising.", image: null }
   ];
 
   const backgroundPattern = (

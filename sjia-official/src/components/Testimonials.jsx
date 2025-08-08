@@ -8,7 +8,7 @@ const Testimonials = () => {
 
   const testimonials = [
     {
-      name: "Safa Beegam",
+      name: "Safwan",
       location: "Kerala, India",
       image: "https://ik.imagekit.io/aksWebSolutions/SJIA/View01.jpg?updatedAt=1754629459883",
       quote: "The Hifzul Quran program transformed my spiritual journey, providing me with both knowledge and community support."
@@ -20,7 +20,7 @@ const Testimonials = () => {
       quote: "The faculty's dedication and the vibrant campus life helped me grow as a leader and scholar."
     },
     {
-      name: "Sara Bin Jamal",
+      name: "Jamal",
       location: "Egypt",
       image: "https://ik.imagekit.io/aksWebSolutions/SJIA/View01.jpg?updatedAt=1754629459883",
       quote: "Studying at this institution gave me a global perspective while deepening my Islamic knowledge."

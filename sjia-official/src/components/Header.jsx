@@ -71,7 +71,7 @@ const getCurrentLanguage = () => {
 
   return (
     <>
-      {/* Islamic Pattern Background */}
+      {/* Islamic Pattern Background
       <div className="fixed top-0 w-full h-20 z-40 opacity-100 pointer-events-none">
         <div 
           className="w-full h-full bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900"
@@ -79,7 +79,7 @@ const getCurrentLanguage = () => {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.08'%3E%3Cpath d='M30 0L37.5 22.5H60L42.5 37.5L50 60L30 45L10 60L17.5 37.5L0 22.5H22.5L30 0Z'/%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
-      </div>
+      </div> */}
 
       <motion.header
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${

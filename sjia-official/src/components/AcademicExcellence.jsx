@@ -14,7 +14,7 @@ import {
 // Dummy data for design purposes
 const topRankHolders = [
   {
-    name: "Amina Rahman",
+    name: "Rahman",
     rank: "1st",
     program: "Hifzul Quran",
     description: "Achieved perfect scores in Tajweed and memorization.",
@@ -28,7 +28,7 @@ const topRankHolders = [
     image: "https://ik.imagekit.io/aksWebSolutions/SJIA/View01.jpg?updatedAt=1754629459883"
   },
   {
-    name: "Fatima Noor",
+    name: "Noor",
     rank: "3rd",
     program: "Bachelor’s in Islamic Education",
     description: "Outstanding performance in pedagogy and research.",
@@ -45,7 +45,7 @@ const awardRecipients = [
     image: "https://ik.imagekit.io/aksWebSolutions/SJIA/View01.jpg?updatedAt=1754629459883"
   },
   {
-    name: "Safa Beegam",
+    name: "Safwan",
     award: "Excellence in Quran Recitation",
     year: 2024,
     description: "Won first place in the national Quran competition.",

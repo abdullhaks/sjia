@@ -237,7 +237,7 @@ const About = () => {
       image: null
     },
     {
-      name: 'Prof. Amina Khatoon',
+      name: 'Prof. Ameen',
       position: 'Vice Chancellor - Academic Affairs',
       qualification: 'PhD Education, Oxford University',
       experience: '25 years',
@@ -245,7 +245,7 @@ const About = () => {
       image: null
     },
     {
-      name: 'Dr. Omar Hassan Al-Baghdadi',
+      name: 'Dr. Omar Hassan',
       position: 'Dean of Islamic Studies',
       qualification: 'PhD Quranic Studies, Al-Azhar University',
       experience: '22 years',
@@ -253,7 +253,7 @@ const About = () => {
       image: null
     },
     {
-      name: 'Dr. Sarah Abdullah',
+      name: 'Dr. Abdullah',
       position: 'Director of Student Affairs',
       qualification: 'PhD Psychology, Cambridge University',
       experience: '18 years',
@@ -269,7 +269,7 @@ const About = () => {
       image: null
     },
     {
-      name: 'Dr. Khadijah Hassan',
+      name: 'Dr. Hassan',
       position: 'Research Director',
       qualification: 'PhD Islamic History, Yale University',
       experience: '16 years',
