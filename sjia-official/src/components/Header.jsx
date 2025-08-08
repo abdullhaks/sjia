@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Menu, X, BookOpen,BookCopy , Users, GraduationCap, Phone, Globe, ChevronDown, Star, Play, Volume2 ,Award} from 'lucide-react';
@@ -8,11 +7,13 @@ const Header = ({ activeSection = 'hero', setActiveSection = () => {} }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const [showMobileLangDropdown, setShowMobileLangDropdown] = useState(false);
   const { i18n } = useTranslation();
 
   const changeLanguage = (code) => {
     i18n.changeLanguage(code);
     setShowLangDropdown(false);
+    setShowMobileLangDropdown(false);
   };
 
   const navItems = [
@@ -24,11 +25,9 @@ const Header = ({ activeSection = 'hero', setActiveSection = () => {} }) => {
     { id: 'admissions', label: 'Admissions', icon: <BookCopy  className="w-4 h-4" /> },
     { id: 'academicExcellence', label: 'Academic Excels', icon: <Award className="w-4 h-4" /> },
     { id: 'contact', label: 'Contact', icon: <Phone className="w-4 h-4" /> },
-
-    
   ];
 
-   const languages = [
+  const languages = [
     { code: 'en', label: 'English', flag: '🇺🇸' },
     { code: 'ml', label: 'മലയാളം', flag: '🇮🇳' },
     { code: 'ur', label: 'اردو', flag: '🇵🇰' },
@@ -43,39 +42,30 @@ const Header = ({ activeSection = 'hero', setActiveSection = () => {} }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
- const scrollToSection = (e, sectionId) => {
-  e.preventDefault();
-  setActiveSection(sectionId);
-  setIsMenuOpen(false);
-  setShowLangDropdown(false);
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    setActiveSection(sectionId);
+    setIsMenuOpen(false);
+    setShowLangDropdown(false);
+    setShowMobileLangDropdown(false);
 
-  const element = document.getElementById(sectionId);
-  if (element) {
-    const headerHeight = 80; // Adjust based on actual header height
-    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({
-      top: elementPosition - headerHeight,
-      behavior: 'smooth',
-    });
-  }
-};
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 80; // Adjust based on actual header height
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementPosition - headerHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-const getCurrentLanguage = () => {
+  const getCurrentLanguage = () => {
     return languages.find(lang => lang.code === i18n.language) || languages[0];
   };
 
   return (
     <>
-      {/* Islamic Pattern Background
-      <div className="fixed top-0 w-full h-20 z-40 opacity-100 pointer-events-none">
-        <div 
-          className="w-full h-full bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.08'%3E%3Cpath d='M30 0L37.5 22.5H60L42.5 37.5L50 60L30 45L10 60L17.5 37.5L0 22.5H22.5L30 0Z'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-      </div> */}
-
       <motion.header
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled 
@@ -86,18 +76,18 @@ const getCurrentLanguage = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="max-w-fullxl mx-auto px-6 lg:px-6">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-3">
             
-            {/* Logo Section */}
+            {/* Logo Section - Improved responsive design */}
             <motion.div 
-              className="flex items-center space-x-4 cursor-pointer group"
+              className="flex items-center space-x-2 sm:space-x-4 cursor-pointer group min-w-0 flex-shrink-0"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => scrollToSection(e, 'hero')}
             >
               <motion.div 
-                className="relative"
+                className="relative flex-shrink-0"
                 whileHover={{ rotate: 5 }}
                 transition={{ duration: 0.3 }}
               >
@@ -105,55 +95,57 @@ const getCurrentLanguage = () => {
                 <img 
                   src='https://ik.imagekit.io/aksWebSolutions/SJIA/sjia-logo.png?updatedAt=1754667321979'
                   alt="College Logo" 
-                  className="relative w-12 h-12 rounded-lg shadow-lg"
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow-lg"
                 />
                 <motion.div
-                  className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center"
+                  className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.5, duration: 0.3 }}
                 >
-                  <Star className="w-2 h-2 text-white" />
+                  <Star className="w-1.5 h-1.5 sm:w-2 sm:h-2 text-white" />
                 </motion.div>
               </motion.div>
               
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0 flex-1 mr-10">
                 <motion.h1 
-                  className="text-sm font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
+                  className="text-xs sm:text-sm lg:text-base font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
                 >
-                  Sheikh jeelani Islamic Academy
+                  <span className="whitespace-nowrap">Sheikh Jeelani</span>
+                  <br className="sm:hidden" />
+                  <span className="sm:ml-1">Islamic Academy</span>
                 </motion.h1>
                
                 <motion.p 
-                  className="text-xs text-gray-600 font-medium"
+                  className="text-xs text-gray-600 font-medium hidden sm:block"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                • Knowledge • Faith • Excellence
+                  • Knowledge • Faith • Excellence
                 </motion.p>
 
-                 <motion.p 
-                  className="text-xs text-gray-600 font-medium"
+                <motion.p 
+                  className="text-xs text-gray-600 font-medium hidden lg:block"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                Mankery, Irimibiliyam, Malppuram, Kerala
+                  Mankery, Irimibiliyam, Malappuram, Kerala
                 </motion.p>
               </div>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-2 flex-1 justify-center">
+            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 flex-1 justify-center">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
                   onClick={(e) => scrollToSection(e, item.id)}
-                  className={`relative flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 group ${
+                  className={`relative flex items-center space-x-1 xl:space-x-2 px-2 xl:px-4 py-2 xl:py-3 rounded-xl text-xs xl:text-sm font-semibold transition-all duration-300 group ${
                     activeSection === item.id
                       ? 'text-white bg-gradient-to-r from-emerald-600 to-teal-600 shadow-lg'
                       : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
@@ -174,22 +166,23 @@ const getCurrentLanguage = () => {
                   <span className="relative z-10 transition-transform group-hover:scale-110">
                     {item.icon}
                   </span>
-                  <span className="relative z-10">{item.label}</span>
+                  <span className="relative z-10 hidden xl:inline">{item.label}</span>
                 </motion.button>
               ))}
             </nav>
 
             {/* Right Section */}
-            <div className="flex items-center space-x-3">
-              {/* Language Dropdown */}
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+              {/* Language Dropdown - Desktop */}
               <div className="relative hidden lg:block">
                 <motion.button
                   onClick={() => setShowLangDropdown(!showLangDropdown)}
-                  className="flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300"
+                  className="flex items-center space-x-2 px-3 xl:px-4 py-2 xl:py-3 rounded-xl text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="text-lg">🌍</span>
+                  <span className="text-lg">{getCurrentLanguage().flag}</span>
+                  <span className="hidden xl:inline text-xs">{getCurrentLanguage().label}</span>
                   <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showLangDropdown ? 'rotate-180' : ''}`} />
                 </motion.button>
 
@@ -206,7 +199,9 @@ const getCurrentLanguage = () => {
                         <motion.button
                           key={lang.code}
                           onClick={() => changeLanguage(lang.code)}
-                          className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-emerald-50 text-gray-700 transition-colors"
+                          className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-emerald-50 transition-colors ${
+                            i18n.language === lang.code ? 'bg-emerald-50 text-emerald-700' : 'text-gray-700'
+                          }`}
                           whileHover={{ x: 4 }}
                         >
                           <span className="text-lg">{lang.flag}</span>
@@ -218,10 +213,46 @@ const getCurrentLanguage = () => {
                 </AnimatePresence>
               </div>
 
+              {/* Language Button - Mobile (visible when menu is closed) */}
+              <motion.button
+                onClick={() => setShowMobileLangDropdown(!showMobileLangDropdown)}
+                className="lg:hidden flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl hover:bg-emerald-50 transition-colors relative"
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-lg">{getCurrentLanguage().flag}</span>
+                
+                {/* Mobile Language Dropdown */}
+                <AnimatePresence>
+                  {showMobileLangDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full right-0 mt-2 w-40 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50"
+                    >
+                      {languages.map((lang) => (
+                        <motion.button
+                          key={lang.code}
+                          onClick={() => changeLanguage(lang.code)}
+                          className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-emerald-50 transition-colors ${
+                            i18n.language === lang.code ? 'bg-emerald-50 text-emerald-700' : 'text-gray-700'
+                          }`}
+                          whileHover={{ x: 4 }}
+                        >
+                          <span className="text-lg">{lang.flag}</span>
+                          <span className="font-medium text-sm">{lang.label}</span>
+                        </motion.button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-emerald-50 transition-colors"
+                className="lg:hidden flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl hover:bg-emerald-50 transition-colors"
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
@@ -229,9 +260,9 @@ const getCurrentLanguage = () => {
                   transition={{ duration: 0.3 }}
                 >
                   {isMenuOpen ? (
-                    <X className="w-6 h-6 text-gray-700" />
+                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
                   ) : (
-                    <Menu className="w-6 h-6 text-gray-700" />
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
                   )}
                 </motion.div>
               </motion.button>
@@ -248,7 +279,7 @@ const getCurrentLanguage = () => {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="lg:hidden border-t border-gray-100 overflow-hidden bg-white/50 backdrop-blur-md"
               >
-                <div className="py-4 space-y-2">
+                <div className="py-4 space-y-1">
                   {navItems.map((item, index) => (
                     <motion.button
                       key={item.id}
@@ -275,11 +306,12 @@ const getCurrentLanguage = () => {
       </motion.header>
 
       {/* Overlay for dropdowns */}
-      {(showLangDropdown || isMenuOpen) && (
+      {(showLangDropdown || showMobileLangDropdown || isMenuOpen) && (
         <div 
           className="fixed inset-0 z-40" 
           onClick={() => {
             setShowLangDropdown(false);
+            setShowMobileLangDropdown(false);
             setIsMenuOpen(false);
           }}
         />
@@ -288,4 +320,4 @@ const getCurrentLanguage = () => {
   );
 };
 
-export default Header
+export default Header;
