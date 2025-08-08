@@ -122,9 +122,9 @@ const getCurrentLanguage = () => {
                 </motion.div>
               </motion.div>
               
-              <div className="">
+              <div className="flex flex-col">
                 <motion.h1 
-                  className="text-m font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
+                  className="text-sm font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent leading-tight"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
