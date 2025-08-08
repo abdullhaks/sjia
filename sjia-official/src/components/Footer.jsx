@@ -131,16 +131,17 @@ const Footer = () => {
               transition={{ duration: 0.5 }}
             >
               <img
-                src="https://ik.imagekit.io/aksWebSolutions/JSC/JSC_APP_ICON2.png?updatedAt=1754539864015"
-                alt="Jeelani Studies Centre Logo"
+                src="https://ik.imagekit.io/aksWebSolutions/SJIA/sjia-logo.png?updatedAt=1754667321979"
+                alt="Sheikh Jeelani Islamic Academy"
                 className="w-full h-full rounded-full object-cover"
               />
             </motion.div>
-            <div className="text-left">
+            <div className="text-center">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
                 Sheikh Jeelani Isamic Academy
               </h3>
               <p className="text-emerald-200 text-lg">Excellence in Islamic Education</p>
+              <p className="text-emerald-200 text-lg">Mankery, Irimibiliyam, Malppuram, Kerala</p>
             </div>
           </motion.div>
           <motion.p

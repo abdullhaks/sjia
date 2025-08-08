@@ -3,11 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Menu, X, BookOpen,BookCopy , Users, GraduationCap, Phone, Globe, ChevronDown, Star, Play, Volume2 ,Award} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-// Mock logo - replace with your actual logo
-const collegeLogo = "data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='25' cy='25' r='23' fill='%23059669' stroke='%23ffffff' stroke-width='4'/%3E%3Ctext x='25' y='32' text-anchor='middle' fill='white' font-size='20' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E";
-
-// Mock college background image
-const collegeImage = "data:image/svg+xml,%3Csvg width='1920' height='1080' viewBox='0 0 1920 1080' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='url(%23grad)'/%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23134e4a'/%3E%3Cstop offset='100%25' stop-color='%23065f46'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E";
 
 const Header = ({ activeSection = 'hero', setActiveSection = () => {} }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,7 +103,7 @@ const getCurrentLanguage = () => {
               >
                 <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
                 <img 
-                  src={collegeLogo} 
+                  src='https://ik.imagekit.io/aksWebSolutions/SJIA/sjia-logo.png?updatedAt=1754667321979'
                   alt="College Logo" 
                   className="relative w-12 h-12 rounded-lg shadow-lg"
                 />
@@ -131,6 +126,7 @@ const getCurrentLanguage = () => {
                 >
                   Sheikh jeelani Islamic Academy
                 </motion.h1>
+               
                 <motion.p 
                   className="text-xs text-gray-600 font-medium"
                   initial={{ opacity: 0, x: -20 }}
@@ -138,6 +134,15 @@ const getCurrentLanguage = () => {
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
                 • Knowledge • Faith • Excellence
+                </motion.p>
+
+                 <motion.p 
+                  className="text-xs text-gray-600 font-medium"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                >
+                Mankery, Irimibiliyam, Malppuram, Kerala
                 </motion.p>
               </div>
             </motion.div>
