@@ -69,7 +69,7 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6 text-white" />,
       label: 'Email Address',
-      value: 'info@jeelani.edu.in',
+      value: '',
       link: 'mailto:info@jeelani.edu.in',
       description: 'Reach us via email anytime',
       gradient: 'from-emerald-500 to-teal-500'
@@ -77,8 +77,8 @@ const Contact = () => {
     {
       icon: <Phone className="w-6 h-6 text-white" />,
       label: 'Phone Number',
-      value: '+91 9876543210',
-      link: 'tel:+919876543210',
+      value: '+91 000000000000',
+      link: 'tel:+00000000000',
       description: 'Call us during business hours',
       gradient: 'from-teal-500 to-emerald-500'
     },
